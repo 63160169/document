@@ -1,0 +1,19 @@
+% ##train
+dirFace = 'train face\';
+dirName = dir(strcat(dirFace,'\*.jpg'));
+numBins = 59;
+trainFea =[];
+for i =1:numel(dirName)
+  im = imread(strcat(dirFace,dirName(i).name)); 
+  figure,imshow(im,[]) 
+  Im128 = imresize(im, [128 128]); 
+  figure,imshow(Im128,[]) 
+  [feature center] = hist(Im128(:),numBins);
+  figure,bar(feature)
+  trainFea = [trainFea;feature];
+end
+labelTrain = [1;1;2;2;3];
+class1 = ones(2,1);
+class2 = ones(2,1)*2;
+class3 = ones(1,1)*3;
+labelTrain = [class1;class2;class3];
